@@ -7,6 +7,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 
 		<script src="babylon.js"></script>
+		<script src="babylon.objFileLoader.js"></script>
 
 		<style>
 			body {
@@ -79,7 +80,7 @@
 					"Camera",
 					Math.PI / 2,
 					Math.PI / 2,
-					10,
+					5,
 					new BABYLON.Vector3(0, 0, 0),
 					scene
 				);
@@ -102,7 +103,10 @@
 				backLight = new BABYLON.DirectionalLight("DirectionalLight", new BABYLON.Vector3(100, 0, -100), scene);
 				backLight.intensity = 1.0;
 
-				var sphere = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 2 }, scene);
+				//var sphere = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 2 }, scene);
+				BABYLON.SceneLoader.Append("./assets/", "female-croupier-2013-03-26.obj", scene, function(scene) {
+					console.log("Mesh loaded");
+				});
 
 				/* Model */
 

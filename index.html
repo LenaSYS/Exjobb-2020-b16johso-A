@@ -86,6 +86,8 @@
 				);
 				camera.attachControl(canvas, true);
 				camera.inertia = 0.75;
+				camera.lowerRadiusLimit = camera.radius;
+				camera.upperRadiusLimit = camera.radius;
 
 				lighting = false;
 
@@ -104,6 +106,7 @@
 				backLight.intensity = 1.0;
 
 				//var sphere = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 2 }, scene);
+				scene.useRightHandedSystem = true;
 				BABYLON.SceneLoader.Append("./assets/", "female-croupier-2013-03-26.obj", scene, function(scene) {
 					console.log("Mesh loaded");
 				});

@@ -26,38 +26,13 @@
 				height: 100%;
 				width: 100%;
 			}
-
-			.left,
-			.right {
-				position: absolute;
-				color: #fff;
-				font-family: Geneva, sans-serif;
-			}
-
-			.left {
-				bottom: 1em;
-				left: 1em;
-				text-align: left;
-			}
-
-			.right {
-				top: 0;
-				right: 0;
-				text-align: right;
-			}
-
-			a {
-				color: #f58231;
-			}
 		</style>
 	</head>
 	<body>
 		<script>
 			var container;
 			var canvas;
-
 			var engine;
-
 			var camera, controls, scene, renderer;
 			var lighting, ambient, keyLight, fillLight, backLight;
 
@@ -73,63 +48,51 @@
 
 				/* Scene */
 				scene = new BABYLON.Scene(engine);
+				// Set background color
 				scene.clearColor = new BABYLON.Color3(0.1, 0.1, 0.1);
+				// Makes sure OBJ isn't flipped
+				scene.useRightHandedSystem = true;
 
 				/* Camera */
-
-				camera = new BABYLON.ArcRotateCamera(
-					"Camera",
-					Math.PI / 2,
-					Math.PI / 2,
-					3,
-					new BABYLON.Vector3(0, 0, 0),
-					scene
-				);
+				camera = new BABYLON.ArcRotateCamera("Camera", Math.PI / 2, Math.PI / 2, 3, new BABYLON.Vector3(0, 0, 0), scene);
 				camera.attachControl(canvas, true);
 				camera.inertia = 0.75;
+				// Disable zooming
 				camera.lowerRadiusLimit = camera.radius;
 				camera.upperRadiusLimit = camera.radius;
 
 				lighting = false;
 
 				ambient = new BABYLON.HemisphericLight("HemiLight", new BABYLON.Vector3(0, 1, 0), scene);
-				ambient.intensity = 1.0;
+				ambient.intensity = 2.0;
+				ambient.shadowEnabled = false;
 
-				keyLight = new BABYLON.DirectionalLight("DirectionalLight", new BABYLON.Vector3(-100, 0, 100), scene);
-				keyLight.diffuse = new BABYLON.Color3(255, 191, 128);
+				keyLight = new BABYLON.DirectionalLight("DirectionalLight", new BABYLON.Vector3(100, 0, -100), scene);
+				keyLight.diffuse = new BABYLON.Color3.FromInts(255, 191, 128);
 				keyLight.intensity = 1.0;
 
-				fillLight = new BABYLON.DirectionalLight("DirectionalLight", new BABYLON.Vector3(100, 0, 100), scene);
-				fillLight.diffuse = new BABYLON.Color3(128, 128, 255);
+				fillLight = new BABYLON.DirectionalLight("DirectionalLight", new BABYLON.Vector3(-100, 0, -100), scene);
+				fillLight.diffuse = new BABYLON.Color3.FromInts(128, 128, 255);
 				fillLight.intensity = 0.75;
 
-				backLight = new BABYLON.DirectionalLight("DirectionalLight", new BABYLON.Vector3(100, 0, -100), scene);
-				backLight.intensity = 1.0;
+				backLight = new BABYLON.DirectionalLight("DirectionalLight", new BABYLON.Vector3(-100, 0, 100), scene);
+				backLight.diffuse = new BABYLON.Color3.FromInts(255, 255, 255);
+				backLight.intensity = 2.0;
 
-				//var sphere = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 2 }, scene);
-				scene.useRightHandedSystem = true;
-				BABYLON.SceneLoader.Append("./assets/", "female-croupier-2013-03-26.obj", scene, function(scene) {
-					console.log("Mesh loaded");
-				});
+				//Initially disable lights
+				keyLight.setEnabled(false);
+				fillLight.setEnabled(false);
+				backLight.setEnabled(false);
 
 				/* Model */
+				//var model = BABYLON.SceneLoader.Append("./assets/", "female-croupier-2013-03-26.obj", scene, function(scene) {
+				//console.log(model);
+				//model.
+				//});
 
-				/*var mtlLoader = new THREE.MTLLoader();
-        mtlLoader.setBaseUrl("assets/");
-        mtlLoader.setPath("assets/");
-        mtlLoader.load("female-croupier-2013-03-26.mtl", function(materials) {
-          materials.preload();
-
-          materials.materials.default.map.magFilter = THREE.NearestFilter;
-          materials.materials.default.map.minFilter = THREE.LinearFilter;
-
-          var objLoader = new THREE.OBJLoader();
-          objLoader.setMaterials(materials);
-          objLoader.setPath("assets/");
-          objLoader.load("female-croupier-2013-03-26.obj", function(object) {
-            scene.add(object);
-          });
-        });*/
+				var model = BABYLON.SceneLoader.ImportMesh("", "./assets/", "female-croupier-2013-03-26.obj", scene, function(mesh) {
+					console.log("Import successful");
+				});
 
 				/* Renderer */
 				engine.runRenderLoop(function() {
@@ -151,12 +114,12 @@
 					lighting = !lighting;
 
 					if (lighting) {
-						ambient.intensity = 0.25;
+						ambient.intensity = 0.5;
 						keyLight.setEnabled(true);
 						fillLight.setEnabled(true);
 						backLight.setEnabled(true);
 					} else {
-						ambient.intensity = 1.0;
+						ambient.intensity = 2.0;
 						keyLight.setEnabled(false);
 						fillLight.setEnabled(false);
 						backLight.setEnabled(false);

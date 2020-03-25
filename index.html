@@ -57,6 +57,8 @@
 				camera = new BABYLON.ArcRotateCamera("Camera", Math.PI / 2, Math.PI / 2, 3, new BABYLON.Vector3(0, 0, 0), scene);
 				camera.attachControl(canvas, true);
 				camera.inertia = 0.75;
+				camera.angularSensibilityX = 500;
+				camera.angularSensibilityY = 500;
 				// Disable zooming
 				camera.lowerRadiusLimit = camera.radius;
 				camera.upperRadiusLimit = camera.radius;

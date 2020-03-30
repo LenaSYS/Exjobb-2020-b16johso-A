@@ -8,6 +8,7 @@
 
 		<script src="babylon.js"></script>
 		<script src="babylon.objFileLoader.js"></script>
+		<script src="fpsmeter.js"></script>
 
 		<style>
 			body {
@@ -36,6 +37,8 @@
 			var engine;
 			var camera, controls, scene, renderer;
 			var lighting, ambient, keyLight, fillLight, backLight;
+
+			var meter = new FPSMeter({ left: "auto", right: "5px" });
 
 			init();
 
@@ -99,7 +102,9 @@
 
 				/* Renderer */
 				engine.runRenderLoop(function() {
+					meter.tickStart();
 					scene.render();
+					meter.tick();
 				});
 
 				/* Events */

@@ -96,12 +96,12 @@
 				//model.
 				//});
 
-				var model = BABYLON.SceneLoader.ImportMesh("", "./assets/", "female-croupier-2013-03-26.obj", scene, function(mesh) {
+				var model = BABYLON.SceneLoader.ImportMesh("", "./assets/", "barone-exported.obj", scene, function (mesh) {
 					console.log("Import successful");
 				});
 
 				/* Renderer */
-				engine.runRenderLoop(function() {
+				engine.runRenderLoop(function () {
 					meter.tickStart();
 					scene.render();
 					meter.tick();

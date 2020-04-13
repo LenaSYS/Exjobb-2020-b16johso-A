@@ -91,14 +91,22 @@
 				backLight.setEnabled(false);
 
 				/* Model */
-				//var model = BABYLON.SceneLoader.Append("./assets/", "female-croupier-2013-03-26.obj", scene, function(scene) {
-				//console.log(model);
-				//model.
-				//});
 
-				var model = BABYLON.SceneLoader.ImportMesh("", "./assets/", "barone-exported.obj", scene, function (mesh) {
-					console.log("Import successful");
-				});
+				var model = BABYLON.SceneLoader.ImportMesh(
+					"",
+					"./assets/",
+					"barone-exported.obj",
+					scene,
+					function (mesh) {
+						console.log("Import successful");
+					},
+					function (xhr) {
+						console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
+					},
+					function (error) {
+						console.log("An error happened");
+					}
+				);
 
 				/* Renderer */
 				engine.runRenderLoop(function () {

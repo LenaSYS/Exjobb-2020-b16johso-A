@@ -69,9 +69,9 @@
 
 				lighting = false;
 
-				ambient = new BABYLON.HemisphericLight("HemiLight", new BABYLON.Vector3(0, 1, 0), scene);
-				ambient.intensity = 2.0;
-				ambient.shadowEnabled = false;
+				//ambient = new BABYLON.HemisphericLight("HemiLight", new BABYLON.Vector3(0, 1, 0), scene);
+				//ambient.intensity = 2.0;
+				//ambient.shadowEnabled = false;
 
 				keyLight = new BABYLON.DirectionalLight("DirectionalLight", new BABYLON.Vector3(100, 0, -100), scene);
 				keyLight.diffuse = new BABYLON.Color3.FromInts(255, 191, 128);
@@ -86,27 +86,12 @@
 				backLight.intensity = 2.0;
 
 				//Initially disable lights
-				keyLight.setEnabled(false);
-				fillLight.setEnabled(false);
-				backLight.setEnabled(false);
+				keyLight.setEnabled(true);
+				fillLight.setEnabled(true);
+				backLight.setEnabled(true);
 
 				/* Model */
-
-				var model = BABYLON.SceneLoader.ImportMesh(
-					"",
-					"./assets/",
-					"barone-exported.obj",
-					scene,
-					function (mesh) {
-						console.log("Import successful");
-					},
-					function (xhr) {
-						console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
-					},
-					function (error) {
-						console.log("An error happened");
-					}
-				);
+				importModel();
 
 				/* Renderer */
 				engine.runRenderLoop(function () {
@@ -141,6 +126,24 @@
 						backLight.setEnabled(false);
 					}
 				}
+			}
+
+			function importModel() {
+				var model = BABYLON.SceneLoader.ImportMesh(
+					"",
+					"./assets/",
+					"barone-exported.obj",
+					scene,
+					function (mesh) {
+						console.log("Import successful");
+					},
+					function (xhr) {
+						console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
+					},
+					function (error) {
+						console.log("An error happened");
+					}
+				);
 			}
 		</script>
 	</body>

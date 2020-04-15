@@ -128,6 +128,12 @@
 				}
 			}
 
+			function onKeyboardEvent(e) {
+				if (e.code === "KeyI") {
+					importModel();
+				}
+			}
+
 			function importModel() {
 				var model = BABYLON.SceneLoader.ImportMesh(
 					"",

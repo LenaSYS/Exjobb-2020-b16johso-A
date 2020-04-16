@@ -30,6 +30,7 @@
 		</style>
 	</head>
 	<body>
+		<button onclick="resetCamera()">Reset</button>
 		<script>
 			var container;
 			var canvas;
@@ -157,6 +158,12 @@
 						console.log("An error happened");
 					}
 				);
+			}
+
+			function resetCamera() {
+				camera.alpha = Math.PI / 2;
+				camera.alpha = Math.PI / 2;
+				camera.radius = 10;
 			}
 		</script>
 	</body>

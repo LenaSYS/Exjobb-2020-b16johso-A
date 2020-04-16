@@ -37,7 +37,6 @@
 			var engine;
 			var camera, controls, scene, renderer;
 			var keyLight, fillLight, backLight;
-			var statue;
 
 			var meter = new FPSMeter({ left: "auto", right: "5px" });
 
@@ -52,42 +51,20 @@
 				engine = new BABYLON.Engine(canvas, true); // Generate the BABYLON 3D engine
 
 				/* Scene */
-				scene = new BABYLON.Scene(engine);
-				// Set background color
-				scene.clearColor = new BABYLON.Color3(0.1, 0.1, 0.1);
-				// Makes sure OBJ isn't flipped
-				scene.useRightHandedSystem = true;
+				createScene();
 
 				/* Camera */
-				camera = new BABYLON.ArcRotateCamera("Camera", Math.PI / 2, Math.PI / 2, 10, new BABYLON.Vector3(0, 0, 0), scene);
-				camera.attachControl(canvas, true);
-				camera.inertia = 0.75;
-				camera.angularSensibilityX = 500;
-				camera.angularSensibilityY = 500;
-				camera.wheelPrecision = 40;
+				createCamera();
 
-				keyLight = new BABYLON.DirectionalLight("DirectionalLight", new BABYLON.Vector3(100, 0, -100), scene);
-				keyLight.diffuse = new BABYLON.Color3.FromInts(255, 191, 128);
-				keyLight.intensity = 1.0;
-
-				fillLight = new BABYLON.DirectionalLight("DirectionalLight", new BABYLON.Vector3(-100, 0, -100), scene);
-				fillLight.diffuse = new BABYLON.Color3.FromInts(128, 128, 255);
-				fillLight.intensity = 0.75;
-
-				backLight = new BABYLON.DirectionalLight("DirectionalLight", new BABYLON.Vector3(-100, 0, 100), scene);
-				backLight.diffuse = new BABYLON.Color3.FromInts(255, 255, 255);
-				backLight.intensity = 0.5;
-
-				//Initially disable lights
-				keyLight.setEnabled(true);
-				fillLight.setEnabled(true);
-				backLight.setEnabled(true);
+				/* Lights */
+				createLights();
 
 				/* Model */
 				importModel();
 
 				/* Renderer */
 				engine.runRenderLoop(function () {
+					//Update FPSMeter each frame
 					meter.tickStart();
 					scene.render();
 					meter.tick();
@@ -107,6 +84,42 @@
 				if (e.code === "KeyI") {
 					importModel();
 				}
+			}
+
+			function createScene() {
+				scene = new BABYLON.Scene(engine);
+				// Set background color
+				scene.clearColor = new BABYLON.Color3(0.1, 0.1, 0.1);
+				// Makes sure OBJ isn't flipped
+				scene.useRightHandedSystem = true;
+			}
+
+			function createCamera() {
+				camera = new BABYLON.ArcRotateCamera("Camera", Math.PI / 2, Math.PI / 2, 10, new BABYLON.Vector3(0, 0, 0), scene);
+				camera.attachControl(canvas, true);
+				camera.inertia = 0.75;
+				camera.angularSensibilityX = 500;
+				camera.angularSensibilityY = 500;
+				camera.wheelPrecision = 40;
+			}
+
+			function createLights() {
+				keyLight = new BABYLON.DirectionalLight("DirectionalLight", new BABYLON.Vector3(100, 0, -100), scene);
+				keyLight.diffuse = new BABYLON.Color3.FromInts(255, 191, 128);
+				keyLight.intensity = 1.0;
+
+				fillLight = new BABYLON.DirectionalLight("DirectionalLight", new BABYLON.Vector3(-100, 0, -100), scene);
+				fillLight.diffuse = new BABYLON.Color3.FromInts(128, 128, 255);
+				fillLight.intensity = 0.75;
+
+				backLight = new BABYLON.DirectionalLight("DirectionalLight", new BABYLON.Vector3(-100, 0, 100), scene);
+				backLight.diffuse = new BABYLON.Color3.FromInts(255, 255, 255);
+				backLight.intensity = 0.5;
+
+				//Initially disable lights
+				keyLight.setEnabled(true);
+				fillLight.setEnabled(true);
+				backLight.setEnabled(true);
 			}
 
 			function importModel() {

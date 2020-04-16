@@ -30,7 +30,6 @@
 		</style>
 	</head>
 	<body>
-		<button onclick="importModel()">Add model</button>
 		<script>
 			var container;
 			var canvas;
@@ -59,7 +58,7 @@
 				scene.useRightHandedSystem = true;
 
 				/* Camera */
-				camera = new BABYLON.ArcRotateCamera("Camera", Math.PI / 2, Math.PI / 2, 3, new BABYLON.Vector3(0, 0, 0), scene);
+				camera = new BABYLON.ArcRotateCamera("Camera", Math.PI / 2, Math.PI / 2, 10, new BABYLON.Vector3(0, 0, 0), scene);
 				camera.attachControl(canvas, true);
 				camera.inertia = 0.75;
 				camera.angularSensibilityX = 500;

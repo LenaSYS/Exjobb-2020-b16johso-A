@@ -64,9 +64,7 @@
 				camera.inertia = 0.75;
 				camera.angularSensibilityX = 500;
 				camera.angularSensibilityY = 500;
-				// Disable zooming
-				//camera.lowerRadiusLimit = camera.radius;
-				//camera.upperRadiusLimit = camera.radius;
+				camera.wheelPrecision = 40;
 
 				lighting = false;
 
@@ -148,7 +146,7 @@
 						newMesh.scaling = new BABYLON.Vector3(0.2, 0.2, 0.2);
 						newMesh.rotation.y = -(0.5 * Math.PI);
 						newMesh.rotation.x = -(0.5 * Math.PI);
-						newMesh.position.y = -1;
+						newMesh.position.y = -3;
 						console.log("Import successful");
 					},
 					function (xhr) {
@@ -164,6 +162,7 @@
 				camera.alpha = Math.PI / 2;
 				camera.alpha = Math.PI / 2;
 				camera.radius = 10;
+				camera.setTarget(new BABYLON.Vector3(0, 0, 0));
 			}
 		</script>
 	</body>

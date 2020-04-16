@@ -37,6 +37,7 @@
 			var engine;
 			var camera, controls, scene, renderer;
 			var lighting, ambient, keyLight, fillLight, backLight;
+			var statue;
 
 			var meter = new FPSMeter({ left: "auto", right: "5px" });
 
@@ -83,7 +84,7 @@
 
 				backLight = new BABYLON.DirectionalLight("DirectionalLight", new BABYLON.Vector3(-100, 0, 100), scene);
 				backLight.diffuse = new BABYLON.Color3.FromInts(255, 255, 255);
-				backLight.intensity = 2.0;
+				backLight.intensity = 0.5;
 
 				//Initially disable lights
 				keyLight.setEnabled(true);
@@ -141,6 +142,13 @@
 					"barone-exported.obj",
 					scene,
 					function (mesh) {
+						// OBJ is separated into different meshes based on material, so we need to combine them into one mesh
+						let newMesh = BABYLON.Mesh.MergeMeshes(mesh, true, true, null, false, true);
+						// Correct the scaling and rotation of the mesh.
+						newMesh.scaling = new BABYLON.Vector3(0.2, 0.2, 0.2);
+						newMesh.rotation.y = -(0.5 * Math.PI);
+						newMesh.rotation.x = -(0.5 * Math.PI);
+						newMesh.position.y = -1;
 						console.log("Import successful");
 					},
 					function (xhr) {

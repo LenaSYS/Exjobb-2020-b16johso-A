@@ -36,7 +36,7 @@
 			var canvas;
 			var engine;
 			var camera, controls, scene, renderer;
-			var lighting, ambient, keyLight, fillLight, backLight;
+			var keyLight, fillLight, backLight;
 			var statue;
 
 			var meter = new FPSMeter({ left: "auto", right: "5px" });
@@ -65,12 +65,6 @@
 				camera.angularSensibilityX = 500;
 				camera.angularSensibilityY = 500;
 				camera.wheelPrecision = 40;
-
-				lighting = false;
-
-				//ambient = new BABYLON.HemisphericLight("HemiLight", new BABYLON.Vector3(0, 1, 0), scene);
-				//ambient.intensity = 2.0;
-				//ambient.shadowEnabled = false;
 
 				keyLight = new BABYLON.DirectionalLight("DirectionalLight", new BABYLON.Vector3(100, 0, -100), scene);
 				keyLight.diffuse = new BABYLON.Color3.FromInts(255, 191, 128);
@@ -107,24 +101,6 @@
 
 			function onWindowResize() {
 				engine.resize();
-			}
-
-			function onKeyboardEvent(e) {
-				if (e.code === "KeyL") {
-					lighting = !lighting;
-
-					if (lighting) {
-						ambient.intensity = 0.5;
-						keyLight.setEnabled(true);
-						fillLight.setEnabled(true);
-						backLight.setEnabled(true);
-					} else {
-						ambient.intensity = 2.0;
-						keyLight.setEnabled(false);
-						fillLight.setEnabled(false);
-						backLight.setEnabled(false);
-					}
-				}
 			}
 
 			function onKeyboardEvent(e) {

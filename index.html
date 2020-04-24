@@ -32,10 +32,8 @@
 	<body>
 		<button onclick="resetCamera()">Reset</button>
 		<script>
-			var container;
-			var canvas;
-			var engine;
-			var camera, controls, scene, renderer;
+			var container, canvas;
+			var camera, controls, scene, engine;
 			var keyLight, fillLight, backLight;
 
 			var meter = new FPSMeter({ left: "auto", right: "5px" });
@@ -114,7 +112,7 @@
 
 				backLight = new BABYLON.DirectionalLight("DirectionalLight", new BABYLON.Vector3(-100, 0, 100), scene);
 				backLight.diffuse = new BABYLON.Color3.FromInts(255, 255, 255);
-				backLight.intensity = 0.5;
+				backLight.intensity = 1.0;
 
 				//Initially disable lights
 				keyLight.setEnabled(true);

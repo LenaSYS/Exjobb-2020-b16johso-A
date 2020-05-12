@@ -36,6 +36,8 @@
 			var camera, controls, scene, engine;
 			var keyLight, fillLight, backLight;
 
+			var numModels = 1;
+
 			var meter = new FPSMeter({ left: "auto", right: "5px" });
 
 			init();
@@ -58,7 +60,9 @@
 				createLights();
 
 				/* Model */
-				importModel();
+				for (i = 0; i < numModels; i++) {
+					importModel();
+				}
 
 				/* Renderer */
 				engine.runRenderLoop(function () {
@@ -80,7 +84,9 @@
 
 			function onKeyboardEvent(e) {
 				if (e.code === "KeyI") {
-					importModel();
+					for (i = 0; i < numModels; i++) {
+						importModel();
+					}
 				}
 			}
 
@@ -114,7 +120,6 @@
 				backLight.diffuse = new BABYLON.Color3.FromInts(255, 255, 255);
 				backLight.intensity = 1.0;
 
-				//Initially disable lights
 				keyLight.setEnabled(true);
 				fillLight.setEnabled(true);
 				backLight.setEnabled(true);
@@ -128,7 +133,7 @@
 					scene,
 					function (mesh) {
 						// OBJ is separated into different meshes based on material, so we need to combine them into one mesh
-						let newMesh = BABYLON.Mesh.MergeMeshes(mesh, true, true, null, false, true);
+						var newMesh = BABYLON.Mesh.MergeMeshes(mesh, true, true, null, false, true);
 						// Correct the scaling and rotation of the mesh.
 						newMesh.scaling = new BABYLON.Vector3(0.2, 0.2, 0.2);
 						newMesh.rotation.y = -(0.5 * Math.PI);
